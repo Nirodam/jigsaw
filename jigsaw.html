@@ -71,7 +71,7 @@
       function parse_input()
       {
          seed = parseInt($("seed").value);
-         t = parseFloat($("tabsize").value) / 200.0;
+         t_set = parseFloat($("tabsize").value) / 200.0;  // Replaced var "t" with "t_set" to save a copy of the orginal value
          j = parseFloat($("jitter").value) / 100.0;
          xn = parseInt($("xn").value);
          yn = parseInt($("yn").value);
@@ -87,12 +87,13 @@
             xi = 0;
             first();
             str += "M " + p0l() + "," + p0w() + " ";
-            for (; xi < xn; ++xi)
+			for (; xi < xn; ++xi)
             {
-               str += "C " + p1l() + " " + p1w() + " " + p2l() + " " + p2w() + " " + p3l() + " " + p3w() + " ";
-               str += "C " + p4l() + " " + p4w() + " " + p5l() + " " + p5w() + " " + p6l() + " " + p6w() + " ";
-               str += "C " + p7l() + " " + p7w() + " " + p8l() + " " + p8w() + " " + p9l() + " " + p9w() + " ";
-               next();
+				t = t_set + Math.random()/20 - .025;  // Used to modify tab size variable by a small amount +/-
+				str += "C " + p1l() + " " + p1w() + " " + p2l() + " " + p2w() + " " + p3l() + " " + p3w() + " ";
+				str += "C " + p4l() + " " + p4w() + " " + p5l() + " " + p5w() + " " + p6l() + " " + p6w() + " ";
+				str += "C " + p7l() + " " + p7w() + " " + p8l() + " " + p8w() + " " + p9l() + " " + p9w() + " ";
+				next();
             }
          }
          return str;
@@ -110,10 +111,11 @@
             str += "M " + p0w() + "," + p0l() + " ";
             for (; yi < yn; ++yi)
             {
-               str += "C " + p1w() + " " + p1l() + " " + p2w() + " " + p2l() + " " + p3w() + " " + p3l() + " ";
-               str += "C " + p4w() + " " + p4l() + " " + p5w() + " " + p5l() + " " + p6w() + " " + p6l() + " ";
-               str += "C " + p7w() + " " + p7l() + " " + p8w() + " " + p8l() + " " + p9w() + " " + p9l() + " ";
-               next();
+				t = t_set + Math.random()/20 - .025;  // Used to modify tab size variable by a small amount +/-
+				str += "C " + p1w() + " " + p1l() + " " + p2w() + " " + p2l() + " " + p3w() + " " + p3l() + " ";
+				str += "C " + p4w() + " " + p4l() + " " + p5w() + " " + p5l() + " " + p6w() + " " + p6l() + " ";
+				str += "C " + p7w() + " " + p7l() + " " + p8w() + " " + p8l() + " " + p9w() + " " + p9l() + " ";
+				next();
             }
          }
          return str;
