@@ -1,6 +1,6 @@
 # Jigsaw puzzle generator
 
-https://draradech.github.io/jigsaw/index.html
+https://nirodam.github.io/jigsaw/index.html
 
 LICENSE info:
 
