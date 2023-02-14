@@ -33,12 +33,14 @@
 
       function updateseed()     { $("_seed").value =    $("seed").value;          update(); }
       function updatetabsize()  { $("_tabsize").value = $("tabsize").value + "%"; update(); }
+      function updatetabvariation()  { $("_tabvariation").value = $("tabvariation").value + "%"; update(); }  // Added input for tab size variation
       function updatejitter()   { $("_jitter").value =  $("jitter").value + "%";  update(); }
       function update_seed()    { var val = parseFloat($("_seed").value);    if (!isNaN(val)) { $("seed").value = val; }    updateseed(); }
       function update_tabsize() { var val = parseFloat($("_tabsize").value); if (!isNaN(val)) { $("tabsize").value = val; } updatetabsize(); }
+      function update_tabvariation() { var val = parseFloat($("_tabvariation").value); if (!isNaN(val)) { $("tabvariation").value = val; } updatetabvariation(); }  // Added input for tab size variation
       function update_jitter()  { var val = parseFloat($("_jitter").value);  if (!isNaN(val)) { $("jitter").value = val; }  updatejitter(); }
       
-      var a, b, c, d, e, t, j, flip, xi, yi, xn, yn, vertical, offset, width, height, radius;
+      var a, b, c, d, e, t, t_set, t_var, j, flip, xi, yi, xn, yn, vertical, offset, width, height, radius;  // Added t_set and t_var variable
       function first() { e = uniform(-j, j); next();}
       function next()  { var flipold = flip; flip = rbool(); a = (flip == flipold ? -e: e); b = uniform(-j, j); c = uniform(-j, j); d = uniform(-j, j); e = uniform(-j, j);}
       function sl()  { return vertical ? height / yn : width / xn; }
@@ -72,6 +74,7 @@
       {
          seed = parseInt($("seed").value);
          t_set = parseFloat($("tabsize").value) / 200.0;  // Replaced var "t" with "t_set" to save a copy of the orginal value
+         t_var = parseFloat($("tabvariation").value) / 500.0; // Added input for tab size variation
          j = parseFloat($("jitter").value) / 100.0;
          xn = parseInt($("xn").value);
          yn = parseInt($("yn").value);
@@ -89,11 +92,11 @@
             str += "M " + p0l() + "," + p0w() + " ";
 			for (; xi < xn; ++xi)
             {
-				t = t_set + Math.random()/20 - .025;  // Used to modify tab size variable by a small amount +/-
-				str += "C " + p1l() + " " + p1w() + " " + p2l() + " " + p2w() + " " + p3l() + " " + p3w() + " ";
-				str += "C " + p4l() + " " + p4w() + " " + p5l() + " " + p5w() + " " + p6l() + " " + p6w() + " ";
-				str += "C " + p7l() + " " + p7w() + " " + p8l() + " " + p8w() + " " + p9l() + " " + p9w() + " ";
-				next();
+               t = t_set + Math.random() * t_var - t_var / 250.0;  // Used to modify tab size variable by a small amount +/-
+               str += "C " + p1l() + " " + p1w() + " " + p2l() + " " + p2w() + " " + p3l() + " " + p3w() + " ";
+               str += "C " + p4l() + " " + p4w() + " " + p5l() + " " + p5w() + " " + p6l() + " " + p6w() + " ";
+               str += "C " + p7l() + " " + p7w() + " " + p8l() + " " + p8w() + " " + p9l() + " " + p9w() + " ";
+               next();
             }
          }
          return str;
@@ -111,11 +114,11 @@
             str += "M " + p0w() + "," + p0l() + " ";
             for (; yi < yn; ++yi)
             {
-				t = t_set + Math.random()/20 - .025;  // Used to modify tab size variable by a small amount +/-
-				str += "C " + p1w() + " " + p1l() + " " + p2w() + " " + p2l() + " " + p3w() + " " + p3l() + " ";
-				str += "C " + p4w() + " " + p4l() + " " + p5w() + " " + p5l() + " " + p6w() + " " + p6l() + " ";
-				str += "C " + p7w() + " " + p7l() + " " + p8w() + " " + p8l() + " " + p9w() + " " + p9l() + " ";
-				next();
+               t = t_set + Math.random() * t_var - t_var / 250.0;  // Used to modify tab size variable by a small amount +/-
+               str += "C " + p1w() + " " + p1l() + " " + p2w() + " " + p2l() + " " + p3w() + " " + p3l() + " ";
+               str += "C " + p4w() + " " + p4l() + " " + p5w() + " " + p5l() + " " + p6w() + " " + p6l() + " ";
+               str += "C " + p7w() + " " + p7l() + " " + p8w() + " " + p8l() + " " + p9w() + " " + p9l() + " ";
+               next();
             }
          }
          return str;
@@ -191,6 +194,9 @@
 </head>
 
 <body onload="$('seed').value = Math.random() * 10000; updateseed();">
+   <h1>
+      Alan's Modified Puzzle Generator
+   </h1>
    <table>
       <tr>
          <td>Seed:</td>
@@ -199,13 +205,18 @@
       </tr>
       <tr>
          <td>Tab Size:</td>
-         <td><input id="_tabsize" type="text" value="20%" onchange="update_tabsize()"/></td>
-         <td><input id="tabsize" type="range" value="20" min="10" max="30" step="0.1" onchange="updatetabsize()"/></td>
+         <td><input id="_tabsize" type="text" value="17.5%" onchange="update_tabsize()"/></td>
+         <td><input id="tabsize" type="range" value="17.5" min="10" max="30" step="0.1" onchange="updatetabsize()"/></td>
+      </tr>
+      <tr>
+         <td>Tab Size Variation:</td>
+         <td><input id="_tabvariation" type="text" value="20%" onchange="update_tabvariation()"/></td>
+         <td><input id="tabvariation" type="range" value="20" min="0" max="30" step="0.1" onchange="updatetabvariation()"/></td>
       </tr>
       <tr>
          <td>Jitter:</td>
-         <td><input id="_jitter" type="text" value="4%" onchange="update_jitter()"/></td>
-         <td><input id="jitter" type="range" value="4" min="0" max="13" step="0.1" onchange="updatejitter()"/></td>
+         <td><input id="_jitter" type="text" value="4.5%" onchange="update_jitter()"/></td>
+         <td><input id="jitter" type="range" value="4.5" min="0" max="13" step="0.1" onchange="updatejitter()"/></td>
       </tr>
       <tr>
          <td>Corner Radius:</td>
