@@ -1,6 +1,9 @@
-# Jigsaw puzzle generator
+# Alan's Modified Puzzle Generator
 
 https://nirodam.github.io/jigsaw/index.html
+
+Branched from Draradech
+https://github.com/Draradech/jigsaw
 
 LICENSE info:
 
